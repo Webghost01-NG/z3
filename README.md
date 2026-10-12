@@ -444,3 +444,35 @@ ZEBRA_HEALTH__ENFORCE_ON_TEST_NETWORKS=true
 - **Integrators and agents:** [docs/contract.md](docs/contract.md), [`z3-contract.yaml`](z3-contract.yaml)
 - **Internals:** [docs/docker-architecture.md](docs/docker-architecture.md): Compose patterns, overlay merge rules, security hardening rationale
 - **Every env var:** [.env.example](.env.example)
+
+## Regtest RPC health-check helper
+
+A lightweight helper is available at
+`scripts/check-regtest-rpc.sh`.
+
+It checks whether a locally running Zebra regtest node responds
+to the `getblockcount` JSON-RPC method and prints its current
+block height.
+
+### Run
+
+```bash
+./scripts/check-regtest-rpc.sh
+```
+
+## What I changed and why
+
+I added scripts/check-regtest-rpc.sh to check whether
+a local Zebra regtest node is responding to JSON-RPC.
+
+The script retrieves the current block height using
+getblockcount. This makes it easier for developers
+to verify their node without manually constructing
+RPC requests.
+
+## Run the health check
+
+    ./scripts/check-regtest-rpc.sh
+
+The RPC endpoint can be customized with
+Z3_REGTEST_RPC_URL.
